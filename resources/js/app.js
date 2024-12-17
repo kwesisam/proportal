@@ -1,0 +1,10 @@
+import "./bootstrap";
+import "./nav";
+import "preline";
+import 'apexcharts/dist/apexcharts.css';
+import "./addprojectform";
+import "./member";
+import "./login";
+import "./forgotpasswordform";
+import "./newpassword";
+import "./charts";
