@@ -1,27 +1,29 @@
 <x-auth>
-    <section>
-        <div class="grid grid-cols-2 gap-0">
-            <div class="col-span-1">
-                <img src="https://via.placeholder.com/250" class="h-screen w-full">
-            </div>
-            <div class="col-span-1 border flex justify-center items-center">
-                <div class="w-3/5 mx-auto space-y-4">
-                    <div class="text-center text-4xl montserrat-medium text-gray-600">Hello Again!</div>
-                    <p class="text-center text-sm montserrat-regular text-gray-600">Welcome back! Manage your tasks, track progress, and collaborate effectively. Please log in to continue.</p>
-
-                    <form class="space-y-4" name="loginform" id="loginform">
-                    
-                        <div>
-                            <label for="username" class="text-sm montserrat-regular text-gray-600">Username</label>
-                            <input type="text" name="username" id="username" class="w-full text-sm border p-2 montserrat-regular outline-none rounded" placeholder="Username">
+    <main class="">
+      <section class=" flex flex-col justify-center items-center w-full h-full space-y-4 ">
+          <div class="grid grid-cols-2 gap-0 w-[55%] h-[70%] rounded-xl shadow-md bg-background">
+              <div class="col-span-1  flex justify-center items-center">
+                <div class="w-5/6 mx-auto space-y-1">
+                    <div class="text-center text-3xl montserrat-semibold header">Welcome back</div>
+                    <p class="text-center text-lg opacity-80 montserrat-regular subheader">Login to your account</p>
+  
+                    <form action="{{ route('login.submit') }}" method="POST" class="space-y-4" name="loginform" id="loginform">
+                      @csrf
+                        <div class="flex flex-col gap-1">
+                            <label for="username" class="text-md montserrat-medium text-tertiary">Username</label>
+                            <input type="text" name="username" id="username" class="input" placeholder="Username">
                             <p id="usernameerror" class="text-xs text-red-500 hidden"><p>
                         </div>
-                        <div>
-                            <label for="password" class="text-sm montserrat-regular text-gray-600">Password</label>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex justify-between items-center">
+                              <label for="password"class="text-md montserrat-medium text-tertiary">Password</label>
+                              <a href="/recoverpassword" class="text-sm montserrat-regular text-tertiary hover:underline hover:underline-offset-2 ">Recover password</a>
+                            </div>
+                
                               <div class="">
                                 <div class="flex">
                                   <div class="relative flex-1">
-                                    <input name="password" type="password" id="hs-strong-password-with-indicator-and-hint-in-popover" class="p-2 block rounded-md outline-none montserrat-regular text-sm w-full border " placeholder="Enter password">
+                                    <input name="password" type="password" id="hs-strong-password-with-indicator-and-hint-in-popover" class="input" placeholder="Enter password">
                                     <div id="hs-strong-password-popover" class="hidden absolute z-10 w-full bg-white">
                                       <div id="hs-strong-password-in-popover" data-hs-strong-password='{
                                           "target": "#hs-strong-password-with-indicator-and-hint-in-popover",
@@ -114,26 +116,32 @@
                               <p id="passworderror" class="text-xs text-red-500 hidden"><p>   
                         
                         </div>
-                        <div class="flex justify-between">
-                            <div class="flex gap-1">
-                                <input type="checkbox" id="rememberme">
-                                <label for="rememberme" class="text-sm montserrat-regular">Remember Me</label>
-                            </div>
-                            <a href="/recoverpassword" class="text-sm montserrat-regular text-blue-600">Recovery Password</a>
-                        </div>
+                       
                         <div>
-
-                            <button name="loginbtn" class="border w-full rounded-md p-2 text-sm bg-emerald-400 text-white flex justify-center montserrat-regular gap-1">
+  
+                            <button  name="loginbtn" class="w-full rounded-md p-2 text-sm bg-primary text-primary-foreground hover:opacity-90 flex justify-center montserrat-regular gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-loader hidden animate-spin"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>
                                 <span>Login</span>
                             </button>
-                            <p id="loginFormError" class="text-xs text-red-500 hidden"><p>
-
+                            @if($errors->any())
+                              <p id="loginFormError" class="text-xs text-red-500">
+                                    {{ $errors->first() }}
+                              <p>
+                            @endif
+                          
+  
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
+              </div>
+              <div class="col-span-1 w-full h-full ">
+              </div>
+             
+          </div>
+          <p class="subheader text-center text-xs montserrat-regular text-tertiary">
+            By clicking continue, you agree to our <a href="#" class="underline underline-offset-2">Terms of Service </a> and <a href="#" class="underline underline-offset-2">Privacy Policy.</a>
+          </p>
+      </section>
+    </main>
 
 </x-auth>

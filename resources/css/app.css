@@ -3,6 +3,62 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+  --background: 26, 26, 26; /* RGB for white 255, 255 ,255 26, 26, 26 */
+  --foreground: 24, 22, 8; /* HSL(240, 10%, 3.9%) → RGB(24, 22, 8) */
+  --card: 255, 255, 255; /* RGB for white */
+  --card-foreground: 24, 22, 8; /* RGB for hsl(240, 10%, 3.9%) */
+  --primary: 225 29 72; /* HSL(346.8, 77.2%, 49.8%) → RGB(229, 50, 44) */
+  --tertiary: 255, 255, 255 ; /* RGB for black 0, 0, 0  255, 255, 255*/
+  --primary-foreground: 255, 255, 255; /* RGB for light */
+  --secondary: 238, 238, 238; /* HSL(240, 4.8%, 95.9%) → RGB(238, 238, 238) */
+  --secondary-foreground: 24, 24, 24; /* HSL(240, 5.9%, 10%) → RGB(24, 24, 24) */
+  --muted: 238, 238, 238; /* RGB for light muted */
+  --muted-foreground: 99, 99, 99; /* HSL(240, 3.8%, 46.1%) → RGB(99, 99, 99) */
+  --accent: 238, 238, 238; /* RGB for light accent */
+  --accent-foreground: 24, 24, 24; /* RGB for dark accent */
+  --destructive: 255, 96, 34; /* HSL(0, 84.2%, 60.2%) → RGB(255, 96, 34) */
+  --destructive-foreground: 255, 255, 255; /* RGB for light destructive foreground */
+  --border: 204, 204, 204; /* HSL(240, 5.9%, 90%) → RGB(204, 204, 204) */
+  --input: 204, 204, 204; /* RGB for light input background */
+  --header: 0, 0, 0; /* RGB for black header */
+}
+
+.dark {
+  --background: 26, 26, 26; /* HSL(20, 14.3%, 4.1%) → RGB(26, 26, 26) */
+  --foreground: 240, 240, 240; /* HSL(0, 0%, 95%) → RGB(240, 240, 240) */
+  --card: 42, 39, 34; /* HSL(24, 9.8%, 10%) → RGB(42, 39, 34) */
+  --card-foreground: 240, 240, 240; /* RGB for light card foreground */
+  --popover: 18, 18, 18; /* HSL(0, 0%, 9%) → RGB(18, 18, 18) */
+  --popover-foreground: 240, 240, 240; /* RGB for light popover foreground */
+  --primary: 225 29 72; /* Same RGB as light primary */
+  --primary-foreground: 255, 255, 255; /* Same RGB as light primary foreground */
+  --tertiary: 255, 255, 255; /* RGB for white tertiary */
+  --secondary: 38, 38, 38; /* HSL(240, 3.7%, 15.9%) → RGB(38, 38, 38) */
+  --secondary-foreground: 240, 240, 240; /* RGB for light secondary foreground */
+  --muted: 15, 15, 15; /* HSL(0, 0%, 15%) → RGB(15, 15, 15) */
+  --muted-foreground: 153, 153, 153; /* HSL(240, 5%, 64.9%) → RGB(153, 153, 153) */
+  --accent: 34, 34, 34; /* HSL(12, 6.5%, 15.1%) → RGB(34, 34, 34) */
+  --accent-foreground: 240, 240, 240; /* RGB for light accent foreground */
+  --destructive: 255, 103, 47; /* HSL(0, 62.8%, 30.6%) → RGB(255, 103, 47) */
+  --destructive-foreground: 255, 255, 255; /* RGB for light destructive foreground */
+  --border: 38, 38, 38; /* RGB for dark border */
+  --input: 38, 38, 38; /* RGB for dark input background */
+}
+
+  
+.input{
+    @apply w-full text-sm border p-2 montserrat-regular outline-none rounded-md shadow-sm focus:border-primary;
+}
+
+.header{
+    @apply  text-tertiary;
+}
+
+.subheader{
+    @apply text-gray-600;
+}
 .montserrat-thin {
     font-family: "Montserrat", sans-serif;
     font-weight: 100;
@@ -110,3 +166,24 @@
     font-weight: 900;
     font-style: italic;
 }
+
+
+/* Apply styles specifically to the custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px; /* Smaller scrollbar width */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Light grey track */
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888; /* Grey thumb */
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker thumb on hover */
+  }
+  

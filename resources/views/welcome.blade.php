@@ -1,5 +1,5 @@
 <x-layout :navLinks="$navLinks">
-    <section class="space-y-8 w-[75%] py-4 px-2">
+    <section class="space-y-8 w-[75%] py-4 px-2 rounded-md shadow-md bg-white">
         <div>
             <p class="montserrat-medium text-lg"><span class="text-gray-600">Today, </span>Monday, August 12 2024</p>
 
@@ -34,7 +34,38 @@
             </div>
         </div>
         <div class="rounded-med">
-            <div class="grid"></div>
+            <div class="grid grid-cols-5 gap-4">
+                <div>
+                    <button id="createUser" class="border p-1">Create User</button>
+                </div>
+                <div>
+                    <button id="updateUser" class="border p-1">Update User</button>
+                </div>
+                <div>
+                    <button id="deleteUser" class="border p-1">Delete User</button>
+                </div>
+                <div>
+                    <button id="getUser" class="border p-1">Get User</button>
+                </div>
+                <div>
+                    <button id="getUsers" class="border p-1">Get users</button>
+                </div>
+                <div>
+                    <button id='addDepart' class="border p-1">Add Department</button>
+                </div>
+                <div>
+                    <button id='updateDepart' class="border p-1">Update Department</button>
+                </div>
+                <div>
+                    <button id='deleteDepart' class="border p-1">Delete Department</button>
+                </div>
+                <div>
+                    <button id='getDepart' class="border p-1">Get Department</button>
+                </div>
+                <div>
+                    <button id='getDeparts' class="border p-1">Get Departments</button>
+                </div>
+            </div>
         </div>
     </section>
 </x-layout>

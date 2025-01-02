@@ -1,4 +1,4 @@
-<aside class=" border-l w-[25%] bg-gray-50 h-dvh " >
+<aside class="shadow-md w-[25%] bg-background rounded-md h-dvh " >
     <section class="sticky right-0 top-[60px]">
         <div class="p-2 border-b">
             <div class="flex justify-between">

@@ -1,9 +1,6 @@
 let isValid = true;
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.forms["loginform"];
-    const csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
     form &&
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -14,67 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 form && document.querySelector("#usernameerror");
             const passwordError =
                 form && document.querySelector("#passworderror");
-            const formError = form && document.querySelector("#loginFormError");
-            hideErrorMessage(usernameError, passwordError, formError);
+            hideErrorMessage(usernameError, passwordError);
             isValid = form && validUsername(username.value, usernameError);
             isValid = form && validPassword(password.value, passwordError);
-
-            if (!isValid) return;
-            try {
-                loginBtn.children[0].classList.remove("hidden");
-                loginBtn.children[1].classList.add("hidden");
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": csrfToken,
-                    },
-                    body: JSON.stringify({
-                        username: username.value,
-                        password: password.value,
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    formError.classList.remove("hidden");
-                    if (response.status === 404) {
-                        formError.textContent = data.error;
-                    } else if (response.status === 401) {
-                        formError.textContent = data.error;
-                    } else {
-                        formError.textContent =
-                            "An error occurred while logging in try again later.";
-                    }
-                    throw new Error(
-                        `An error occurred while processing your request`
-                    );
-                }
-
-                if (data.error) {
-                    if (data.error === "User not found") {
-                        usernameError.textContent = "User not found";
-                        usernameError.classList.remove("hidden");
-                    } else if (data.error === "Invalid password") {
-                        passwordError.textContent = "Invalid password";
-                        passwordError.classList.remove("hidden");
-                    }
-                    return;
-                }
-            } catch (error) {
-                console.error(error);
-            } finally {
+            loginBtn.children[0].classList.remove("hidden");
+            loginBtn.children[1].classList.add("hidden");
+            if (!isValid) { 
                 loginBtn.children[0].classList.add("hidden");
                 loginBtn.children[1].classList.remove("hidden");
-            }
+                return false
+            };
+            form.submit();
         });
 });
 
 const hideErrorMessage = (usernameerror, passwroderror, formerror) => {
     usernameerror.classList.add("hidden");
     passwroderror.classList.add("hidden");
-    formerror.classList.add("hidden");
 };
 const validUsername = (username, errormessage) => {
     if (!username) {

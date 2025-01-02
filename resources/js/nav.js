@@ -16,11 +16,20 @@ const activeNav = () => {
             const isActive =
                 href === currentPath || currentPath.startsWith(`/ ${href} `);
             if (isActive) {
+                link.children[i].classList.add("bg-primary", "rounded-md", "hover:opacity-100");
                 link.children[i].children[0].children[0].classList.remove(
-                    "text-gray-600"
+                    "text-tertiary"
                 );
                 link.children[i].children[0].children[0].classList.add(
-                    "text-black"
+                    "text-primary-foreground", "hover:opacity-100"
+                );
+
+                link.children[i].children[0].children[1].classList.remove(
+                    "text-tertiary"
+                );
+
+                link.children[i].children[0].children[1].classList.add(
+                    "text-primary-foreground", "hover:opacity-100"
                 );
 
                 if (currentPath !== "/") {
@@ -28,86 +37,34 @@ const activeNav = () => {
                         href === "/project" ||
                         currentPath.startsWith(`/project/`)
                     ) {
-                        setTimeout(() => {
+                        /*setTimeout(() => {
                             link.children[i].children[1].classList.remove(
                                 "hidden"
                             );
-                            console.log(
-                                link.children[i].children[1].children[0]
-                                    .children[1].children[0]
-                            );
-                            if(prams && prams[0].split("=")[1] === "add" && prams[0].split("=")[0] === "projectloc"){
-                                link.children[
-                                    i
-                                ].children[1].children[0].children[1].children[0].classList.add(
-                                    "text-emerald-400",
-                                    "bg-emerald-50"
-                                );
-                            } else if (prams && prams[0].split("=")[1] === "closed" && prams[0].split("=")[0] === "projectloc") {
-                                link.children[
-                                    i
-                                ].children[1].children[0].children[2].children[0].classList.add(
-                                    "text-emerald-400",
-                                    "bg-emerald-50"
-                                );
-                            } else if (
-                                prams &&
-                                prams[0].split("=")[1] === "expired" && prams[0].split("=")[0] === "projectloc"
-                            ) {
-                                link.children[
-                                    i
-                                ].children[1].children[0].children[3].children[0].classList.add(
-                                    "text-emerald-400",
-                                    "bg-emerald-50"
-                                );
-                            } else {
-                                link.children[
-                                    i
-                                ].children[1].children[0].children[0].children[0].classList.add(
-                                    "text-emerald-400",
-                                    "bg-emerald-50"
-                                );
-                            }
-                        }, 1000);
-                    } else if (
-                        href === "/team" ||
-                        currentPath.startsWith(`/team/`)
-                    ) {
-                        setTimeout(() => {
-                            link.children[i].children[2].classList.remove(
-                                "hidden"
-                            );
-                            link.children[i].children[2].children[0].children[0].children[0].classList.add(
+
+                            link.children[
+                                i
+                            ].children[1].children[0].children[0].children[0].classList.add(
                                 "text-emerald-400",
                                 "bg-emerald-50"
-                            )
-                            /*if(prams && prams[0].split("=")[1] === "add" && prams[0].split("=")[0] === "teamloc") {
-                                    link.children[i].children[2].children[0].children[1].children[0].classList.add(
-                                        "text-emerald-400",
-                                        "bg-emerald-50"
-                                    )
-                            }else{
-                               
-                            }*/
+                            );
+                        }, 1000);*/
+                    } else if (
+                        href === "/profile" ||
+                        currentPath.startsWith(`/profile/`)
+                    ) {
+                        setTimeout(() => {
+                            link.children[i].children[3].classList.remove(
+                                "hidden"
+                            );
+
+                            link.children[
+                                i
+                            ].children[3].children[0].children[0].children[0].classList.add(
+                                "text-emerald-400",
+                                "bg-emerald-50"
+                            );
                         }, 1000);
-                    } else if (  href === "/profile" ||
-                        currentPath.startsWith(`/profile/`)){
-                            setTimeout(() => {
-                                link.children[i].children[3].classList.remove(
-                                    "hidden"
-                                );
-                                if (prams && prams[0].split("=")[1] === "edit" && prams[0].split("=")[0] === "profileloc") {
-                                        link.children[i].children[3].children[0].children[1].children[0].classList.add(
-                                            "text-emerald-400",
-                                            "bg-emerald-50"
-                                        )
-                                }else{
-                                    link.children[i].children[3].children[0].children[0].children[0].classList.add(
-                                        "text-emerald-400",
-                                        "bg-emerald-50"
-                                    )
-                                }
-                            }, 1000);
                     }
                 }
             }
