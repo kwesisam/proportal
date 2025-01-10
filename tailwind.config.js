@@ -2,6 +2,7 @@ import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: "class",
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
@@ -25,6 +26,7 @@ export default {
                 secondary: "rgb(var(--secondary))",
                 "secondary-foreground": "rgb(var(--secondary-foreground))",
                 tertiary: "rgb(var(--tertiary))",
+                "tertiary-foreground": "rgb(var(--tertiary-foreground))",
                 muted: "rgb(var(--muted))",
                 "muted-foreground": "rgb(var(--muted-foreground))",
                 accent: "rgb(var(--accent))",
@@ -34,6 +36,7 @@ export default {
                 border: "rgb(var(--border))",
                 input: "rgb(var(--input))",
                 header: "rgb(var(--header))",
+                custom: "rgb(var(--custom))",
             },
             borderRadius: {
                 DEFAULT: "var(--radius)",

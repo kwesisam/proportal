@@ -1,34 +1,34 @@
 <x-layout :navLinks="$navLinks">
-    <section class="space-y-8 w-[75%] py-4 px-2 rounded-md shadow-md bg-white">
-        <div>
-            <p class="montserrat-medium text-lg"><span class="text-gray-600">Today, </span>Monday, August 12 2024</p>
+    <section class="space-y-8 w-[75%] py-4 px-2 rounded-md shadow-md bg-gray-50 dark:bg-neutral-900">
+        <div class="space-y-4">
+            <p class="montserrat-medium text-lg header"><span class="text-gray-600">Today, </span>Monday, August 12 2024</p>
 
             <div class="grid grid-cols-3 gap-4">
                 <div class="border rounded-md flex p-4 gap-2 shadow cursor-pointer">
-                    <div class="rounded-full p-3 border bg-gray-100" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder w-full h-full text-gray-600"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                    <div class="rounded-full p-3 border bg-primary" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder w-full h-full text-white"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                     </div>
                     <div class="flex flex-col">
-                        <div class="montserrat-bold text-lg">124</div>
-                        <p class="text-sm montserrat-regular text-gray-600">Active Project</p>
+                        <div class="montserrat-bold text-lg header">{{ $dashboardData['projects_count'] }}</div>
+                        <p class="text-sm montserrat-regular  header opacity-80">Projects</p>
                     </div>
                 </div>
                 <div class="border rounded-md flex p-4 gap-2 shadow cursor-pointer">
-                    <div class="rounded-full p-3 border bg-gray-100" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-gauge w-full h-full text-gray-600"><path d="M15.6 2.7a10 10 0 1 0 5.7 5.7"/><circle cx="12" cy="12" r="2"/><path d="M13.4 10.6 19 5"/></svg>
+                    <div class="rounded-full p-3 border bg-primary" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-gauge w-full h-full text-white"><path d="M15.6 2.7a10 10 0 1 0 5.7 5.7"/><circle cx="12" cy="12" r="2"/><path d="M13.4 10.6 19 5"/></svg>
                     </div>
                     <div class="flex flex-col">
-                        <div class="montserrat-bold text-lg">124</div>
-                        <p class="text-sm montserrat-regular text-gray-600">Ongoing tasks</p>
+                        <div class="montserrat-bold text-lg header">{{ $dashboardData['departments_count'] }}</div>
+                        <p class="text-sm montserrat-regular header opacity-80">Departments</p>
                     </div>
                 </div>
                 <div class="border rounded-md flex p-4 gap-2 shadow cursor-pointer">
-                    <div class="rounded-full p-3 border bg-gray-100" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-check text-gray-600 w-full h-full"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="m9 13 2 2 4-4"/></svg>
+                    <div class="rounded-full p-3  bg-primary" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-files w-full h-full text-white"><path d="M20 7h-3a2 2 0 0 1-2-2V2"/><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"/><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"/></svg>
                     </div>
                     <div class="flex flex-col">
-                        <div class="montserrat-bold text-lg">124</div>
-                        <p class="text-sm montserrat-regular text-gray-600">Completed Task</p>
+                        <div class="montserrat-bold text-lg header">124</div>
+                        <p class="text-sm montserrat-regular header opacity-80">Files</p>
                     </div>
                 </div>
             </div>

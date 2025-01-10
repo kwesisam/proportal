@@ -17,7 +17,7 @@ import "./project";
 import "./createDepartment";
 import "./projectDeparment";
 import "./fileUpload";
-import "./renameModel";
+import "./folder";
 window._ = _;
 
 window.addEventListener("load", () => {

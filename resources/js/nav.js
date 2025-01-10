@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     activeNav();
+
+    console.log(
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+    );
 });
 
 const activeNav = () => {
@@ -12,16 +18,25 @@ const activeNav = () => {
                 ? window.location.search.split("?")[1].split("&")
                 : null;
 
-            console.log(currentPath, href, prams);
-            const isActive =
-                href === currentPath || currentPath.startsWith(`/ ${href} `);
+            console.log(currentPath, href+"/");
+            console.log(currentPath.split("/")[1] === href.split("/")[1])
+
+            //href === currentPath || currentPath.startsWith(`/${href}`)
+            const isActive = currentPath.split("/")[1] === href.split("/")[1]
+            console.log(isActive)
             if (isActive) {
-                link.children[i].classList.add("bg-primary", "rounded-md", "hover:opacity-100");
+                link.children[i].classList.add(
+                    "bg-primary",
+                    "rounded-md",
+                    "hover:opacity-100",
+                    "hover:text-black"
+                );
                 link.children[i].children[0].children[0].classList.remove(
                     "text-tertiary"
                 );
                 link.children[i].children[0].children[0].classList.add(
-                    "text-primary-foreground", "hover:opacity-100"
+                    "text-primary-foreground",
+                    "hover:opacity-100",
                 );
 
                 link.children[i].children[0].children[1].classList.remove(
@@ -29,7 +44,8 @@ const activeNav = () => {
                 );
 
                 link.children[i].children[0].children[1].classList.add(
-                    "text-primary-foreground", "hover:opacity-100"
+                    "text-primary-foreground",
+                    "hover:opacity-100"
                 );
 
                 if (currentPath !== "/") {

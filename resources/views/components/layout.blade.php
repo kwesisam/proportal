@@ -21,13 +21,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.39/libphonenumber.js" integrity="sha512-1n/KXVQgB6fZi/6dc6+yGx4HC6OvsyTI0DDeBIhBgg0x322ZnzJP0WMQklmFc4poHrJRyT7urpbrGITM5vNBVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Development version -->
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script>
+                // This code should be added to <head>.
+        // It's used to prevent page load glitches.
+        const html = document.querySelector('html');
+        const isLightOrAuto = localStorage.getItem('hs_theme') === 'light' || (localStorage.getItem('hs_theme') === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches);
+        const isDarkOrAuto = localStorage.getItem('hs_theme') === 'dark' || (localStorage.getItem('hs_theme') === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        if (isLightOrAuto && html.classList.contains('dark')) html.classList.remove('dark');
+        else if (isDarkOrAuto && html.classList.contains('light')) html.classList.remove('light');
+        else if (isDarkOrAuto && !html.classList.contains('dark')) html.classList.add('dark');
+        else if (isLightOrAuto && !html.classList.contains('light')) html.classList.add('light');
+
+
+    </script>
+    @vite("resources/js/changeView.js")
     @vite("resources/css/app.css")
+
 </head>
 <body>
-    <main class="flex relative bg-gray-50 ">
+    <main class="flex relative bg-background">
         <x-leftSidebar :navLinks="$navLinks" />
-        <section class="w-full  relative">
+        
+        <section class="w-full relative">
             <x-navBar/>
+            <x-mobileNav :navLinks="$navLinks" />
             <div class="px-3 flex gap-2 relative"> 
                 {{ $slot }}
                 @if(request()->is('/'))
@@ -35,7 +53,8 @@
                 @endif
             </div>
         </section>
-    </main>
+        
+       </main>
     @vite('resources/js/app.js')
     
 </body>

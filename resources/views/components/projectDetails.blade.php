@@ -1,5 +1,5 @@
 <x-layout :navLinks="$navLinks">
-    <section class="space-y-8 flex-grow">
+    <section class="space-y-8 flex-grow ">
         <!--- Project Name --->
         <div class="">
             <h1 class="text-3xl montserrat-bold">Welcome to Laravel 8</hjson>

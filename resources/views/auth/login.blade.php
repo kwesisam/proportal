@@ -1,11 +1,11 @@
 <x-auth>
-    <main class="">
+    <main class="bg-tertiary-foreground">
       <section class=" flex flex-col justify-center items-center w-full h-full space-y-4 ">
-          <div class="grid grid-cols-2 gap-0 w-[55%] h-[70%] rounded-xl shadow-md bg-background">
-              <div class="col-span-1  flex justify-center items-center">
-                <div class="w-5/6 mx-auto space-y-1">
-                    <div class="text-center text-3xl montserrat-semibold header">Welcome back</div>
-                    <p class="text-center text-lg opacity-80 montserrat-regular subheader">Login to your account</p>
+          <div class="md:grid grid-cols-2 gap-0 w-[90%] md:w-[80%] lg:w-[55%] md:h-[70%] rounded-xl md:shadow-md md:bg-background">
+              <div class="col-span-1 flex justify-center items-center">
+                <div class="w-full p-3 md:p-0 md:w-5/6 mx-auto space-y-1 py-8">
+                    <div class="text-center text-2xl md:text-3xl montserrat-semibold header">Welcome back</div>
+                    <p class="text-center md:text-lg opacity-80 montserrat-regular text-tertiary">Login to your account</p>
   
                     <form action="{{ route('login.submit') }}" method="POST" class="space-y-4" name="loginform" id="loginform">
                       @csrf
@@ -24,13 +24,13 @@
                                 <div class="flex">
                                   <div class="relative flex-1">
                                     <input name="password" type="password" id="hs-strong-password-with-indicator-and-hint-in-popover" class="input" placeholder="Enter password">
-                                    <div id="hs-strong-password-popover" class="hidden absolute z-10 w-full bg-white">
+                                    <div id="hs-strong-password-popover" class="hidden absolute z-10 w-full bg-gray-100 rounded-md p-2">
                                       <div id="hs-strong-password-in-popover" data-hs-strong-password='{
                                           "target": "#hs-strong-password-with-indicator-and-hint-in-popover",
                                           "hints": "#hs-strong-password-popover",
-                                          "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-teal-500 h-2 flex-auto rounded-full bg-blue-500 opacity-50 mx-1",
+                                          "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-rose-500 h-2 flex-auto rounded-full bg-rose-500 opacity-50 mx-1",
                                           "mode": "popover"
-                                        }' class="flex mt-2 -mx-1">
+                                        }' class="flex mt-2 -mx-1 p-2">
                                       </div>
                               
                                       <h4 class="mt-3 text-sm font-semibold text-gray-800 dark:text-white">
@@ -134,12 +134,14 @@
                     </form>
                 </div>
               </div>
-              <div class="col-span-1 w-full h-full ">
+
+              <div class="hidden md:block col-span-1 w-full h-full">
+                
               </div>
              
           </div>
-          <p class="subheader text-center text-xs montserrat-regular text-tertiary">
-            By clicking continue, you agree to our <a href="#" class="underline underline-offset-2">Terms of Service </a> and <a href="#" class="underline underline-offset-2">Privacy Policy.</a>
+          <p class="text-center text-xs montserrat-regular text-tertiary">
+            By clicking continue, you agree to our <a href="#" class="underline underline-offset-2"> <br class="block md:hidden">Terms of Service </a> and <a href="#" class="underline underline-offset-2">Privacy Policy.</a>
           </p>
       </section>
     </main>

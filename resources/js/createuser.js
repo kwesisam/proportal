@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
 
-    console.log(csrfToken);
     const createUserBtn = document.querySelector("#createUser");
     const updateUserBtn = document.querySelector("#updateUser");
     const deleteUserBtn = document.querySelector("#deleteUser");

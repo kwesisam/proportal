@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //const createBtn2 = document.querySelector("#createBtn2");
 
     const csrfToken =
-        form &&
         document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
@@ -179,5 +178,189 @@ document.addEventListener("DOMContentLoaded", () => {
             return false;
         }
         return true;
+    };
+
+    //Getting element of class projects from manageProjectBlade
+    const projects = document.querySelectorAll(".projects");
+    const projectsb = document.querySelectorAll(".projectsb");
+    const selectContent = document.querySelector("#selectContent");
+    let previousElement = null;
+    //console.log(projectsb && projectsb.length);
+    projects &&
+        projects.forEach((element) => {
+            element.addEventListener("dblclick", async () => {
+                const id = element.getAttribute("data-project-id");
+                const type = element.getAttribute("data-type");
+                const folder = element.getAttribute("data-folder-name");
+                console.log(element);
+                console.log(type, id, folder);
+
+                if (type === "projects")
+                    window.location.href = `/project/${id}`;
+                if (type === "projectsdepartment" && folder)
+                    window.location.href = `/project/${id}/info/${folder}`;
+            });
+        });
+
+    projectsb && console.log(projectsb);
+    projectsb &&
+        projectsb.forEach((element) => {
+            element.addEventListener("dblclick", () => {
+                const id = element.getAttribute("data-project-id");
+                const type = element.getAttribute("data-type");
+                const folder = element.getAttribute("data-folder-name");
+                console.log(type, id, folder);
+
+                if (type === "projects")
+                    window.location.href = `/project/${id}`;
+
+                if (type === "projectsdepartment" && folder)
+                    window.location.href = `/project/${id}/info/${folder}`;
+            });
+
+            element.addEventListener("click", () => {
+                if (previousElement) {
+                    previousElement.classList.remove(
+                        "bg-rose-500",
+                        "rounded-md"
+                    );
+                }
+
+                const id = element.getAttribute("data-project-id");
+                const type = element.getAttribute("data-type");
+                const folder = element.getAttribute("data-folder-name");
+                element.classList.add("bg-rose-500", "rounded-md");
+                selectContent && selectContent.classList.remove("hidden");
+                selectContent && selectContent.classList.add("flex");
+                for (let i = 0; i < selectContent.children.length; i++) {
+                    if (i === 0) {
+                        selectContent.children[0].addEventListener(
+                            "click",
+                            () => {
+                                if (type === "projects")
+                                    window.location.href = `/project/${id}`;
+
+                                if (type === "projectsdepartment")
+                                    window.location.href = `/project/${id}/info/${folder}`;
+                            }
+                        );
+                    } else if (i === 2) {
+                        selectContent.children[i].addEventListener(
+                            "click",
+                            async () => {
+                                if (type === "projects")
+                                    deleteProject(id, type);
+                                if (type === "projectsdepartment" && folder) {
+                                   deleteProject(id, type, folder)
+                                }
+                            }
+                        );
+                    }
+                }
+                previousElement = element;
+            });
+        });
+
+    const popUp = () => {
+        const model = document.createElement("div");
+        model.classList.add(
+            "fixed",
+            "bg-opacity-50",
+            "z-50",
+            "w-screen",
+            "h-screen",
+            "hidden",
+            "top-0",
+            "left-0",
+            "flex",
+            "items-center",
+            "justify-center",
+            "bg-white",
+            "backdrop-blur-sm",
+            "bg-opacity-70",
+            "transition-all",
+            "duration-300",
+            "ease-in-out"
+        );
+
+        const modelContent = document.createElement("div");
+        document.body.appendChild(model);
+
+        modelContent.classList.add(
+            "bg-white",
+            "mx-auto",
+            "mt-20",
+            "w-full",
+            "rounded-xl",
+            "sm:max-w-sm",
+            "sm:rounded-lg",
+            "shadow-lg",
+            "px-7",
+            "py-6"
+        );
+
+        model.appendChild(modelContent);
+        const renameContent = document.createElement("div");
+        modelContent.appendChild(renameContent);
+        model.classList.remove("hidden");
+
+        document.addEventListener("click", (e) => {
+            if (e.target === model) {
+                model.classList.add("hidden");
+            }
+        });
+    };
+
+    const deleteProject = async (id, type, folder = "") => {
+        console.log(id, folder, type);
+        if (type === "projects") {
+            try {
+                const response = await fetch(`/api/project/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                });
+                const data = await response.json();
+                console.log(data);
+                if (!response.ok) {
+                    throw new Error("An error occurred while deleting project");
+                }
+
+                window.location.reload();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        if (type === "projectsdepartment" && folder) {
+            console.log("deleting...");
+
+            try {
+                const response = await fetch(
+                    `/api/project/${id}/info/${folder}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": csrfToken,
+                        },
+                    }
+                );
+                const data = await response.json();
+                if (!response.ok) {
+                    console.error("Server response:", data);
+                    throw new Error(
+                        data.message ||
+                            "An error occurred while deleting the project."
+                    );
+                }
+
+                console.log("Project deleted successfully:", data);
+                window.location.reload();
+            } catch (error) {
+                console.error("Error:", error.message);
+            }
+        }
     };
 });

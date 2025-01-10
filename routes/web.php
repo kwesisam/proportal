@@ -66,14 +66,32 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
             return redirect('/login');
         }
 
+        $fetchProjects = Project::all();
+
+        Log::info("Projects", [$fetchProjects]);
+        $countProjects = 0;
+        if ($fetchProjects) {
+            $countProjects = $fetchProjects->count();
+        }
+        $fetchDepartments = Department::all();
+        $countDepartments = 0;
+        if ($fetchDepartments) {
+            $countDepartments = $fetchDepartments->count();
+        }
+
         if ($role === "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
         }
 
+        $dashboardData = [
+            'projects_count' => $countProjects,
+            'departments_count' => $countDepartments,
+        ];
 
-        return view("welcome", compact('navLinks', 'role'));
+
+        return view("welcome", compact('navLinks', 'role', 'dashboardData'));
     });
 
     Route::get("/profile", function () use ($navLinks) {
@@ -126,6 +144,7 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
 
         Log::info('id', [$id]);
         $checkId = Project::find($id);
+        $currentProject = $checkId;
         if (!$checkId) {
             return redirect('/project');
         }
@@ -161,17 +180,77 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
 
 
         if ($role === 'user') {
-            return view("dashboard.manager.projectInfo1", compact('navLinks', 'currentDepartment', 'id', 'role', 'departments', 'details'));
+            return view("dashboard.manager.projectInfo1", compact('navLinks', 'currentDepartment', 'id', 'role', 'departments', 'details', 'currentProject'));
         }
     })->name('project.info');
 
+    Route::delete("/api/project/{id}", function ($id) use ($navLinks) {
+        $user = Auth::user();
 
+        if (!$user) {
+            return redirect('/login');
+        }
+
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json([
+                'message' => 'Project not found.',
+            ], 404);
+        }
+
+        $project->delete();
+        return response()->json([
+            'message' => 'Project deleted successfully.',
+        ], 200);
+    })->name('project.delete');
+
+
+
+    Route::put("/api/project/rename/{id}", function (Request $request, $id) {
+        $project = Project::find($id);
+        Log::info("Request", [$request->all()]);
+        Log::info('Project', [$project]);
+        if (!$project) {
+            return response()->json([
+                'message' => 'Project not found.',
+            ], 404);
+        }
+
+        Log::info("ddd", [222]);
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'min:3',
+                'max:50',
+                'not_regex:/^\d+$/',
+            ],
+        ], [
+            'name.required' => 'Project name is required.',
+            'name.min' => 'Project name must be at least 3 characters.',
+            'name.not_regex' => 'Project name cannot consist only of numbers.',
+        ]);
+
+        $project->name = $validated['name'];
+        $project->save();
+        Log::info("ddd", [$project]);
+        return response()->json([
+            'message' => 'user updated successfully.',
+            'data' => $project,
+        ], 200);
+    });
 
     Route::get("/project/{id}/info/{folder}", function ($id, $folder) use ($navLinks) {
         $user = Auth::user();
-        Log::info('Project id and folder anem', [$id, $folder]);
         if (!$user) {
             return redirect('/login');
+        }
+
+        $project = Project::find($id);
+        $currentProject = $project;
+        if (!$project) {
+            return redirect("/project");
         }
         $role = $user->role;
         $files = Files::where('project_id', $id)->where('folder', $folder)->get();
@@ -191,11 +270,132 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
         foreach ($files as &$file) {
             $file['actual_path'] = route('serve.file', ['filename' => basename($file['file_path'])]);
         }
-        Log::info('Files', $files);
         if ($role === 'user') {
-            return view("dashboard.manager.projectInfo2", compact('navLinks', 'id', 'folder', 'role', 'files'));
+            return view("dashboard.manager.projectInfo2", compact('navLinks', 'id', 'folder', 'role', 'files', 'currentProject'));
         }
     })->name('project.info.folder');
+
+    //
+    Route::delete("/api/project/{id}/info/{folder}", function ($id, $folder) {
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
+
+        $depart = Department::where('department', $folder)->first();
+
+        if (!$depart) {
+            return response()->json(['message' => 'Department not found'], 404);
+        }
+
+        $projectDepartment = ProjectDepartment::where('project_id', $project->id)
+            ->where('department_id', $depart->id)
+            ->first();
+
+
+        if ($projectDepartment) {
+            $projectDepartment->delete();
+            return response()->json(['message' => 'Project department deleted successfully'], 200);
+        }
+
+        return response()->json(['message' => 'Project department not found'], 404);
+    })->name('project.folder.delete');
+
+    //delete file route
+    Route::delete("/api/file/delete/{id}", function ($id) {
+        Log::info("Request to delete file received", ['file_id' => $id]);
+
+        // Find the file by ID
+        $file = Files::find($id);
+
+        // If file exists, log the file details and delete it
+        if ($file) {
+            Log::info("File found", ['file' => $file]);
+
+            // Attempt to delete the file
+            try {
+                $file->delete();
+                Log::info("File deleted successfully", ['file_id' => $id]);
+                return response()->json(['message' => 'File deleted successfully'], 200);
+            } catch (Exception $e) {
+                Log::error("Failed to delete file", ['error' => $e->getMessage()]);
+                return response()->json(['message' => 'Failed to delete file'], 500);
+            }
+        }
+
+        // If file not found, return 404 response
+        Log::warning("File not found", ['file_id' => $id]);
+        return response()->json(['message' => 'File not found'], 404);
+    })->name('delete.file');
+
+
+    //update file route
+    Route::put("/api/file/rename/{id}", function ($id, Request $request) {
+        Log::info("Request to update file received", ['file_id' => $id, $request->all()]);
+
+        // Find the file by ID
+        $file = Files::find($id);
+
+        // If file exists, log the file details and update it
+        if ($file) {
+            Log::info("File found", ['file' => $file]);
+
+            // Validate the request data
+            $validated = $request->validate([
+                'file_name' => [
+                    'required',
+                    'string',
+                    'min:3',
+                    'max:50',
+                ],
+            ], [
+                'file_name.required' => 'File name is required.',
+                'file_name.min' => 'File name must be at least 3 characters.',
+            ]);
+
+            // Update the file name
+            $file->file_name = $validated['file_name'];
+            $file->save();
+
+            Log::info("File updated successfully", ['file_id' => $id]);
+            return response()->json(['message' => 'File updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'File not found'], 404);
+        }
+    })->name('update.file');
+
+
+
+    //download file route
+    Route::get("/api/file/download/{id}", function ($id) {
+        Log::info("Request to download file received", ['file_id' => $id]);
+
+        // Find the file by ID
+        $file = Files::find($id);
+
+        // If file exists, log the file details and download it
+        if ($file) {
+            Log::info("File found", ['file' => $file]);
+
+            // Get the file path
+            $filePath = storage_path('app/private/' . $file->file_path);
+
+            // Check if the file exists
+            if (file_exists($filePath)) {
+                Log::info("File path", ['path' => $filePath]);
+
+                // Return the file as a download
+                return response()->download($filePath, $file->file_name)->setStatusCode(200);
+            } else {
+                Log::warning("File not found", ['file_id' => $id]);
+                return response()->json(['message' => 'File not found'], 404);
+            }
+        } else {
+            Log::warning("File not found", ['file_id' => $id]);
+            return response()->json(['message' => 'File not found'], 404);
+        }
+    })->name('download.file');
 
 
     //service files
