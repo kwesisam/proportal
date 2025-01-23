@@ -36,7 +36,7 @@
         </div>
         <div class="size-10 border rounded-full cursor-pointer hidden md:block"></div>
 
-        <button type="button" class="inline-flex  m-1 ms-0 py-1 px-1 md:hidden items-center text-tertiary  focus:outline-none  disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-right" data-hs-overlay="#hs-offcanvas-right">
+        <button type="button" class="inline-flex  m-1 ms-0 py-1 px-1 lg:hidden items-center text-tertiary  focus:outline-none  disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-right" data-hs-overlay="#hs-offcanvas-right">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         </button>
         

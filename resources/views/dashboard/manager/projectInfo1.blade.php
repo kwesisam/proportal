@@ -33,30 +33,37 @@
                </div>
            </div>
            <div class="py-4 border-b hidden" id="manipulationresult"></div>
-           <div id="selectContent" class=" hidden gap-1 rounded-md justify-end py-1 px-2 bg-gray-200 dark:bg-zinc-800">
-               <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-dot "><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/><circle cx="14" cy="15" r="1"/></svg>
-               </div>
-       
-               <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info header"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-               </div>
-       
-               <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 header"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-               </div>
+           <div class=" flex rounded-md justify-between items-center py-1 px-2 bg-gray-200 dark:bg-zinc-800">
+                <div class="p-2">xxxx</div>
+                <div id="selectContent" class=" hidden gap-1 px-2 ">
+                    <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-dot "><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/><circle cx="14" cy="15" r="1"/></svg>
+                    </div>
+            
+                    <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info header"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+            
+                    <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 header"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </div>
+                </div>
+           </div>
+           <div class="py-1 mt-4 px-2" >
+
+            <div class="grid grid-cols-4 md:grid-cols-7 " id="listHeader" >
+                <div class="text-sm col-span-4 montserrat-regular header select-none">Project name</div>
+                <div class="text-sm hidden md:inline-block montserrat-regular header  select-none">Created by</div>
+                <div class="text-sm hidden md:block montserrat-regular header select-none">Last modified</div>
+                <div class="text-sm hidden md:block montserrat-regular header  select-none">File size</div>
+            </div>
+
            </div>
        </div>
-       <div  class="h-[70vh] overflow-y-scroll">
+       <div  class="h-[63vh] overflow-y-scroll">
             <x-contextualLayout>
                 <div id="projectList" class="hidden">
-                    <div class="grid grid-cols-4 md:grid-cols-7 py-2">
-                        <div class="text-sm col-span-4 montserrat-regular header select-none">Project name</div>
-                        <div class="text-sm hidden md:inline-block montserrat-regular header  select-none">Created by</div>
-                        <div class="text-sm hidden md:block montserrat-regular header select-none">Last modified</div>
-                        <div class="text-sm hidden md:block montserrat-regular header  select-none">File size</div>
-                    </div>
-        
+                  
                     <div class="h-[90vh]">
                         <!-- Details rows -->
                         @for ($i = 0; $i < count($currentDepartment); $i++)
@@ -118,7 +125,7 @@
                 </div>
     
                 <div  id="projectGrid" class="hidden">
-                    <div class="h-[90vh]">
+                    <div class="h-[80vh]">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
                                 @for ($i = 0; $i < count($currentDepartment); $i++)
                                    
@@ -207,8 +214,8 @@
                                                     <p class="text-xs text-red-500 hidden"></p>
                                                 </div>
                                                 <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                                                    <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">Cancel</button>
-                                                    <button type="button" id="createProjectDeparmentBtn" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none  bg-primary hover:opacity-90">
+                                                    <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2 montserrat-regular">Cancel</button>
+                                                    <button type="button" id="createProjectDeparmentBtn" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none  bg-primary hover:opacity-90 montserrat-regular">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-loader animate-spin hidden"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>
                                                         <span>
                                                             Add

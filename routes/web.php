@@ -18,7 +18,7 @@ $navLinks = [
     'Home' => [
         "name" => 'Dashboard',
         "url" => '/',
-        "icon" => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>'
+        "icon" => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>'
     ],
 
     'Projects' => [
@@ -31,6 +31,18 @@ $navLinks = [
         "name" => 'Accounts',
         "url" => '/account',
         "icon" => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>'
+    ],
+
+    'Departments' => [
+        "name" => 'Departments',
+        "url" => '/department',
+        "icon" => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>'
+    ],
+
+    'Files' => [
+        "name" => 'Files',
+        "url" => '/file',
+        "icon" => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-files"><path d="M20 7h-3a2 2 0 0 1-2-2V2"/><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"/><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"/></svg>'
     ],
 
     'Profile' => [
@@ -79,19 +91,40 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
             $countDepartments = $fetchDepartments->count();
         }
 
-        if ($role === "admin") {
+        $fetchFiles = Files::all();
+        $countFiles = 0;
+        if ($fetchFiles) {
+            $countFiles = $fetchFiles->count();
+        }
+
+        $filesByDepartment = [];
+        if ($fetchDepartments) {
+            foreach ($fetchDepartments as $department) {
+                $files = Files::where('folder', $department->department)->get();
+                if ($files) {
+                    $filesByDepartment[$department->department] = [$department->department, count($files)];
+                }
+            }
+        }
+        Log::info('Files by department', [$filesByDepartment, $role]);
+        if ($role == "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
         }
 
         $dashboardData = [
             'projects_count' => $countProjects,
             'departments_count' => $countDepartments,
+            'files_count' => $countFiles
         ];
 
 
-        return view("welcome", compact('navLinks', 'role', 'dashboardData'));
+
+        return view("welcome", compact('navLinks', 'role', 'dashboardData', 'filesByDepartment', 'fetchDepartments'));
     });
 
     Route::get("/profile", function () use ($navLinks) {
@@ -101,12 +134,14 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
             return redirect('/login');
         }
 
-        if ($role === "admin") {
+        if ($role == "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
-        }
 
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
+        }
         return view("dashboard.profile", compact('navLinks', 'role'));
     });
 
@@ -116,10 +151,13 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
             return redirect('/login');
         }
         $role = $user->role;
-        if ($role === "admin") {
+        if ($role == "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
         }
 
         $projects = Project::all();
@@ -129,6 +167,69 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
         }
     });
 
+    Route::get("/account", function () use ($navLinks) {
+        $user = Auth::user();
+        $role = $user->role;
+        Log::info("user", [$user]);
+        if (!$user) {
+            return redirect('/login');
+        }
+
+        if ($role == "admin") {
+            unset($navLinks['Projects']);
+        } else {
+            unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
+        }
+
+        $accounts = Account::all();
+        return view("dashboard.admin.account", compact('navLinks', 'role', 'accounts', 'user'));
+    });
+
+    Route::get("/department", function () use ($navLinks) {
+        $user = Auth::user();
+        $role = $user->role;
+        if (!$user) {
+            return redirect('/login');
+        }
+
+        if ($role == "admin") {
+            unset($navLinks['Projects']);
+        } else {
+            unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
+        }
+
+        $departments = Department::all();
+        Log::info("Departments", [$departments]);
+        return view("dashboard.admin.department", compact('navLinks', 'role', 'departments'));
+    });
+
+    Route::get("/file", function () use ($navLinks) {
+        $user = Auth::user();
+        $role = $user->role;
+        if (!$user) {
+            return redirect('/login');
+        }
+
+        if ($role == "admin") {
+            unset($navLinks['Projects']);
+        } else {
+            unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
+        }
+
+        $files = Files::all();
+        Log::info("Files", [$files]);
+        return view("dashboard.admin.file", compact('navLinks', 'role', 'files'));
+    });
+
     Route::get("/project/{id}", function ($id) use ($navLinks) {
         $user = Auth::user();
 
@@ -136,10 +237,13 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
             return redirect('/login');
         }
         $role = $user->role;
-        if ($role === "admin") {
+        if ($role == "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
         }
 
         Log::info('id', [$id]);
@@ -254,10 +358,13 @@ Route::middleware(['web', 'auth'])->group(function () use ($navLinks) {
         }
         $role = $user->role;
         $files = Files::where('project_id', $id)->where('folder', $folder)->get();
-        if ($role === "admin") {
+        if ($role == "admin") {
             unset($navLinks['Projects']);
         } else {
             unset($navLinks['Accounts']);
+
+            unset($navLinks['Departments']);
+            unset($navLinks['Files']);
         }
 
         if (!$files) {
@@ -778,7 +885,7 @@ Route::post('/api/depart/add', function (Request $request) {
 
 Route::put("/api/user/update/{id}", function (Request $request, $id) {
     $user = Account::find($id);
-
+    Log::info('User', [$user, $request->all()]);
     if (!$user) {
         return response()->json([
             'message' => 'user not found.',
@@ -786,8 +893,10 @@ Route::put("/api/user/update/{id}", function (Request $request, $id) {
     }
 
     $validatedData = $request->validate([
+        "username" => 'nullable|string|max:100',
         'full_name' => 'nullable|string|max:255',
         'email' => 'nullable|email|max:255',
+        'role' => 'nullable|string|in:user,admin'
     ]);
 
     $user->update($validatedData);
@@ -800,7 +909,7 @@ Route::put("/api/user/update/{id}", function (Request $request, $id) {
 
 Route::put("/api/depart/update/{id}", function (Request $request, $id) {
     $department = Department::find($id);
-    Log::info('Department', [$department]);
+    Log::info('Department', [$department, $request->all()]);
     if (!$department) {
         return response()->json([
             'message' => 'Department not found.',
@@ -831,7 +940,6 @@ Route::put("/api/depart/update/{id}", function (Request $request, $id) {
 
 Route::delete("/api/user/delete/{id}", function ($id) {
     $user = Account::find($id);
-
     if (!$user) {
         return response()->json([
             'message' => 'user not found.',

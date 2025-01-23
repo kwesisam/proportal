@@ -1,5 +1,7 @@
 @props(['navLinks'])
-
+@props(['filesByDepartment'])
+@props(['role'])
+@props(['fetchDepartments'])
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
@@ -39,17 +41,17 @@
     @vite("resources/css/app.css")
 
 </head>
-<body>
-    <main class="flex relative bg-background">
+<body class="bg-background">
+    <main class="flex relative">
         <x-leftSidebar :navLinks="$navLinks" />
         
         <section class="w-full relative">
             <x-navBar/>
             <x-mobileNav :navLinks="$navLinks" />
-            <div class="px-3 flex gap-2 relative"> 
+            <div class="px-3 lg:flex gap-2 relative"> 
                 {{ $slot }}
                 @if(request()->is('/'))
-                    <x-rightSidebar/>
+                    <x-rightSidebar :filesByDepartment="$filesByDepartment" :role="$role" :fetchDepartments="$fetchDepartments"/>
                 @endif
             </div>
         </section>

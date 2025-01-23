@@ -1,6 +1,6 @@
 @props(['projects'])
-<section class="shadow-md bg-gray-50 dark:bg-neutral-900 p-2 rounded-md h-[88vh]">
-    <div class="sticky top-0 left-0 right-0">
+<section class="shadow-md bg-gray-50 dark:bg-neutral-900 p-2 rounded-md h-[89h]">
+    <div class="">
          <div class="py-4 flex justify-between">
             <div>
                 <div>
@@ -21,36 +21,40 @@
                 </button>
             </div>
         </div>
-        <div class="py-4 border-b hidden" id="manipulationresult"></div>
-        <div id="selectContent" class=" hidden gap-1 rounded-md justify-end py-1 px-2 bg-gray-200 dark:bg-zinc-800">
-            <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-dot "><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/><circle cx="14" cy="15" r="1"/></svg>
+        <div class="gap-1 rounded-md  py-1 px-2 bg-gray-200 justify-between items-center dark:bg-zinc-800 flex">
+            <div class="p-2" id="manipulationresult">xxxx</div>
+            <div id="selectContent" class="hidden gap-1 px-2">
+                <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2  rounded-full cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-dot "><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/><circle cx="14" cy="15" r="1"/></svg>
+                </div>
+        
+                <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info header"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                </div>
+        
+                <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2  rounded-full cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 header"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                </div>
             </div>
-    
-            <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info header"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            </div>
-    
-            <div class="header hover:bg-gray-100 hover:dark:bg-zinc-700 p-2 rounded-full cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 header"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+        </div>
+        <div class="py-1 mt-4 px-2" >
+
+            <div class="grid grid-cols-4 md:grid-cols-7" id="listHeader" >
+                <div class="text-sm col-span-3 montserrat-regular header select-none">Project name</div>
+                <div class="text-sm hidden col-span-2 md:block montserrat-regular header select-none">Created by</div>
+                <div class="text-sm hidden md:block montserrat-regular header select-none">Last modified</div>
+                <div class="text-sm hidden md:block montserrat-regular header select-none">File size</div>
             </div>
         </div>
     </div>
-    <div  class="h-[70vh] overflow-y-scroll">
+    <div  class="h-[63vh] overflow-y-scroll">
         <x-contextualLayout>
             <div id="projectList" class="hidden">
-                <div class="grid grid-cols-4 md:grid-cols-7 py-2">
-                    <div class="text-sm col-span-3 md:col-span-4 montserrat-regular header select-none">Project name</div>
-                    <div class="text-sm hidden md:block montserrat-regular header select-none">Created by</div>
-                    <div class="text-sm hidden md:block montserrat-regular header select-none">Last modified</div>
-                    <div class="text-sm hidden md:block montserrat-regular header select-none">File size</div>
-                </div>
-    
-                <div class="h-[90vh]">
+                <div class="h-[90vh] ">
                     <!-- Details rows -->
                         @for ($i = 0; $i < count($projects); $i++)
-                            <div class="projectsb grid grid-cols-4 md:grid-cols-7 py-2 px-2 border-t cursor-pointer" data-type="projects" data-project-id="{{ $projects[$i]->id }}">
-                                <div class="text-sm col-span-3 truncate montserrat-regular items-center flex gap-2" data-project-id="{{ $projects[$i]->id }}">
+                            <div class="projectsb grid grid-cols-4 md:grid-cols-7 py-2  border-t cursor-pointer" data-type="projects" data-project-id="{{ $projects[$i]['id'] }}">
+                                <div class="text-sm col-span-3  truncate montserrat-regular items-center flex gap-2" data-project-id="{{ $projects[$i]['id'] }}">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-closed header  w-full h-full">
                                             <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
@@ -58,14 +62,14 @@
                                         </svg>
                                     </div>
                                     <div class="w-[70%] truncate header opacity-90 select-none">
-                                        {{ $projects[$i]->name }}
+                                        {{ $projects[$i]['name'] }}
                                     </div>
                                 </div>
-                                <div class="text-sm truncate montserrat-regular header hidden md:inline-block opacity-90 relative top-2 select-none">
-                                   {{ $projects[$i]->owner_name }}
+                                <div class="text-sm truncate col-span-2 montserrat-regular header hidden md:inline-block opacity-90 relative top-2 select-none">
+                                   {{ $projects[$i]['owner_name'] }}
                                 </div>
                                 <div class="text-sm montserrat-regular header opacity-90 select-none hidden md:inline-block ">
-                                        {{ $projects[$i]->created_at }}
+                                        {{ $projects[$i]['created_at'] }}
                                 </div>
                                 <div class="text-sm relative truncate montserrat-regular hs-dropdown inline-flex items-center justify-end md:justify-between header ">
                                     <div class="opacity-90 select-none hidden  md:inline-block ">
@@ -79,11 +83,11 @@
                                             </svg>
                                             <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-50 py-2 w-56 bg-background  text-md rounded-lg montserrat-regular shadow-md " role="tooltip">
                                                     <div class="flex flex-col gap-2">
-                                                        <div data-file-id="{{ $projects[$i]->id }}" data-type="projects"  class="open flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3 ">
+                                                        <div data-file-id="{{ $projects[$i]['id'] }}" data-type="projects"  class="open flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3 ">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-dot"><path d="m6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"/><circle cx="14" cy="15" r="1"/></svg>
                                                             <span class="select-none">Open folder</span>
                                                         </div>
-                                                        <div data-file-name="{{ $projects[$i]->name }}" data-file-id="{{ $projects[$i]->id }}"  data-type="projects" class="rename flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3">
+                                                        <div data-file-name="{{ $projects[$i]['name'] }}" data-file-id="{{ $projects[$i]['id'] }}"  data-type="projects" class="rename flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-pen-line"><path d="m18 5-2.414-2.414A2 2 0 0 0 14.172 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2"/><path d="M21.378 12.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><path d="M8 18h1"/></svg>
                                                             <span class="select-none">Rename</span>
                                                         </div>
@@ -92,7 +96,7 @@
                                                             <span class="select-none">File information</span>
                                                         </div>
                                             
-                                                        <div data-file-id="{{ $projects[$i]->id }}" data-type="projects"  class="remove flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3">
+                                                        <div data-file-id="{{ $projects[$i]['id'] }}" data-type="projects"  class="remove flex gap-2 cursor-pointer header hover:!bg-rose-500 py-1 px-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                                                                 <span class="select-none">Remove file</span>
                                                         </div>
@@ -106,8 +110,8 @@
                 </div>
             </div>
 
-            <div  id="projectGrid" class="hidden">
-                <div class="h-[90vh]">
+            <div  id="projectGrid" class="hidden ">
+                <div class="h-[80vh]">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
                         @for ($i = 0; $i < count($projects); $i++)
                                 <div class="shadow dark:shadow-rose-100 p-2 rounded-md flex-col projects cursor-pointer" data-type="projects" data-project-id="{{ $projects[$i]->id }}" >
@@ -222,7 +226,7 @@
             </template>
         </x-contextualLayout>
     </div>
-    
+
 
     
 

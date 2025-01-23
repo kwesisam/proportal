@@ -18,6 +18,8 @@ import "./createDepartment";
 import "./projectDeparment";
 import "./fileUpload";
 import "./folder";
+import "./accounts"
+import "./department"
 window._ = _;
 
 window.addEventListener("load", () => {
